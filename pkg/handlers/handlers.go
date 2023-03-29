@@ -17,9 +17,22 @@ func New(db *gorm.DB) handler {
 }
 
 func (h *handler) GetBooks(c *gin.Context) {
-	var book []models.Book
-	h.DB.Find(&book)
-	c.IndentedJSON(http.StatusOK, &book)
+	
+
+	var ord models.Read
+	if err := c.BindJSON(&ord); err != nil {
+		c.IndentedJSON(http.StatusOK, "Input is not correct")
+		panic(err)
+	} else {
+		var book []models.Book
+		if ord.Ord != "" && ord.Ord == "desc"{ 
+			h.DB.Order("id desc").Find(&book)
+		} else { 
+			h.DB.Order("id asc").Find(&book)
+		}
+		c.IndentedJSON(http.StatusOK, &book)
+		// c.IndentedJSON(http.StatusOK, ord)
+	}
 }
 
 func (h *handler) Home(c *gin.Context) {
@@ -28,8 +41,7 @@ func (h *handler) Home(c *gin.Context) {
 
 func (h *handler) GetBook(c *gin.Context) {
 	id := c.Param("id")
-	readProduct := &models.Book{}
-	// h.DB.First(&readProduct, "id = ?", id)
+	readProduct := models.Book{}
 
 	dbRresult := h.DB.Where("title = ?", id).First(&readProduct)
 	if errors.Is(dbRresult.Error, gorm.ErrRecordNotFound) {
@@ -41,6 +53,7 @@ func (h *handler) GetBook(c *gin.Context) {
 	} else {
 		c.IndentedJSON(http.StatusOK, &readProduct)
 	}
+
 }
 
 func (h *handler) CreateBook(c *gin.Context) {

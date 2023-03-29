@@ -14,4 +14,7 @@ type Book struct {
 	Description string		`json:"description"`
 	Cost float32			`json:"cost"`	
 }
+type Read struct{
+	Ord string			`json:"ord"`
+}
 

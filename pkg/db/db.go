@@ -9,12 +9,13 @@ import (
 )
 
 func Init() *gorm.DB {
-	dbURL := "postgres://postgres:12345@localhost:5433/bookStore?sslmode=disable"
+	// dbURL := "postgres://postgres:12345@localhost:5432/bookStore?sslmode=disable"
+	dbURL := "postgres://postgres:12345@localhost:5432"
 
 	db, err := gorm.Open(postgres.Open(dbURL), &gorm.Config{})
 
 	if err != nil {
-			log.Fatalln(err)
+		log.Fatalln(err)
 	}
 
 	db.AutoMigrate(&models.Book{})

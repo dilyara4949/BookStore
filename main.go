@@ -12,10 +12,12 @@ func main() {
 	DB := db.Init()
 	h := handlers.New(DB)
 	router := gin.Default()
-	router.GET("/book", h.GetBooks)
-	router.GET("book/:id", h.GetBook)
 	router.GET("/", h.Home)
-	
+	router.GET("/book", h.GetBooks)
+	router.GET("/book/:id", h.GetBook)
+	router.POST("/book", h.CreateBook)
+	router.DELETE("/book/:id", h.DeleteBook)
+	router.PUT("/book/:id", h.UpdateBook)
 
 	router.Run("localhost:8000")
 }

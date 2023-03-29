@@ -9,9 +9,9 @@ import (
 
 type Book struct {
 	gorm.Model
-	Id int      			  `json:"id"`
-	Title string 				`json:"title"`
-	Description string	`json:"description"`
-	Cost float32				`json:"cost"`	
+	Id int      			`json:"id"`
+	Title string 			`json:"title"`
+	Description string		`json:"description"`
+	Cost float32			`json:"cost"`	
 }
 

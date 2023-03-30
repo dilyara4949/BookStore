@@ -2,7 +2,7 @@ version: "3.9"
 
 
 services:
-  database:
+  postgres:
     image: postgres:15.2-alpine
     # restart: always
     environment:
@@ -20,6 +20,12 @@ services:
     ports:
       - "8000:8000"
     depends_on: 
-      - database
+      - postgres
+    environment:
+      DATABASE_HOST: postgres
+      DATABASE_PORT: 5433
+      DATABASE_USER: postgres
+      DATABASE_PASSWORD: 12345
+      DATABASE_NAME: bookStore
     command: ["/app/main"]
 

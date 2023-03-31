@@ -5,7 +5,8 @@ WORKDIR /app
 
 COPY . .
 
-RUN go build -o main .
+RUN go build -o main . 
+# RUN apt-get update; apt-get install -y nginx; 
 
 FROM alpine:latest
 
